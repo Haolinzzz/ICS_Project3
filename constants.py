@@ -7,7 +7,7 @@ Me          = 5.9722e24          # earth
 Mm          = 6.39e23            # mars
 Mc          = 6.39e20            # unknown comet
 AU          = 1.5e11
-daysec      = 24.0*60*60
+DinS        = 24.0*60*60
 
 c_ap_v      = 38860              # aphelion velocity mercury	
 v_ap_v      = 34790              # aphelion velocity mercury

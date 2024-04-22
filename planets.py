@@ -4,7 +4,7 @@ from constants import *
 
 class planet:
     autom: int = 149597870700
-    span: str = "1d"
+    step: str = "1d"
     start: str
     stop: str
 
