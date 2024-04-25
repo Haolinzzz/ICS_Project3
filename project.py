@@ -3,10 +3,10 @@ from constants import *
 from math import sqrt
 
 # initialization
-start = "2021-11-22"
+start = "2023-11-22"
 
 sun = planet("Sun", 10, Ms, start=start)
-venus = planet("Venus", 299, 8*Mv, start=start)
+venus = planet("Venus", 299, Mv, start=start)
 earth = planet("Earth", 399, Me, start=start)
 mars = planet("Mars", 499, Mm, start=start)
 
