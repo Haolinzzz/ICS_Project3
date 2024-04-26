@@ -87,7 +87,7 @@ text_d = ax.text(*initial_position_probe, 'Space Probe')
 point_e, = ax.plot(*position_sun, marker="o", markersize=8, markeredgecolor="yellow", markerfacecolor="yellow")
 text_e = ax.text(*position_sun, "Sun")
 
-# Date label for displaying the simulation's current date
+# Date label 
 text_date = ax.text(-2.5 * 1E11, 2.4 * 1E11, earth.start)
 
 # position track for each unit
@@ -124,31 +124,29 @@ dxdata, dydata = [], []
 
 def update(i):
     axdata.append(venus.x[i])
-    aydata.append(venus.y[i])
-    
     bxdata.append(earth.x[i])
-    bydata.append(earth.y[i])
-    
     cxdata.append(mars.x[i])
-    cydata.append(mars.y[i])
-
     dxdata.append(probe.arr_x[i])
+    
+    aydata.append(venus.y[i])
+    bydata.append(earth.y[i])
+    cydata.append(mars.y[i])
     dydata.append(probe.arr_y[i])
     
     line_a.set_data(axdata,aydata)
-    point_a.set_data(venus.x[i],venus.y[i])
-    text_a.set_position((venus.x[i],venus.y[i]))
-    
     line_b.set_data(bxdata,bydata)
-    point_b.set_data(earth.x[i],earth.y[i])
-    text_b.set_position((earth.x[i],earth.y[i]))
-    
     line_c.set_data(cxdata,cydata)
-    point_c.set_data(mars.x[i],mars.y[i])
-    text_c.set_position((mars.x[i],mars.y[i]))
-
     line_d.set_data(dxdata,dydata)
+
+    point_a.set_data(venus.x[i],venus.y[i])
+    point_b.set_data(earth.x[i],earth.y[i])
+    point_c.set_data(mars.x[i],mars.y[i])
     point_d.set_data(probe.arr_x[i],probe.arr_y[i])
+
+
+    text_a.set_position((venus.x[i],venus.y[i]))
+    text_b.set_position((earth.x[i],earth.y[i]))    
+    text_c.set_position((mars.x[i],mars.y[i]))
     text_d.set_position((probe.arr_x[i],probe.arr_y[i]))
 
     ax.axis('equal')
