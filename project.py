@@ -2,15 +2,13 @@ from planets import planet, Probe
 from math import sqrt
 
 #define the constant
-
 G           = 6.67e-11
-Ms          = 2.0e30             # sun
-Mv          = 4.8673e24          # venus
-Me          = 5.9722e24          # earth        
-Mm          = 6.39e23            # mars
+Ms          = 2.0e30             # Mass of sun
+Mv          = 4.8673e24          # Mass of venus
+Me          = 5.9722e24          # Mass of earth        
+Mm          = 6.39e23            # Mass of mars
 AU          = 1.5e11
 DinS        = 24.0*60*60
-
 
 # initialization
 start = "2023-04-26" # can modify the time by user
