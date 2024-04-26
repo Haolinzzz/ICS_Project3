@@ -1,6 +1,15 @@
 from __future__ import annotations
 from astroquery.jplhorizons import Horizons
-from constants import *
+
+
+G           = 6.67e-11
+Ms          = 2.0e30             # sun
+Mv          = 4.8673e24          # venus
+Me          = 5.9722e24          # earth        
+Mm          = 6.39e23            # mars
+AU          = 1.5e11
+DinS        = 24.0*60*60
+
 
 class planet:
     autom: int = 149597870700
