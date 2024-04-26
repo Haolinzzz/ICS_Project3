@@ -53,7 +53,7 @@ class Probe:
         for planet in planets:
             gravconst = G * planet.mass * self.mass
             
-            # compute gravitation force
+            # compute gravitation force on x, y, z
             rx,ry,rz = px - planet.x[ptr], py - planet.y[ptr], pz - planet.z[ptr]
             fx = -gravconst*rx/(rx**2+ry**2+rz**2)**1.5
             fy = -gravconst*ry/(rx**2+ry**2+rz**2)**1.5
@@ -63,7 +63,7 @@ class Probe:
             dy += fy
             dz += fz         
 
-        # compute acceleration by a = F/m
+        # compute acceleration and velocity 
         self.xv += dx*self.dt/self.mass
         self.yv += dy*self.dt/self.mass
         self.zv += dz*self.dt/self.mass

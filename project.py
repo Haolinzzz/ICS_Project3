@@ -26,14 +26,16 @@ venus.vz = [0 for i in range(len(venus.vz))]
 
 cur_v = sqrt((earth.vx[0]/DinS)**2 + (earth.vy[0]/DinS)**2 + (earth.vz[0]/DinS)**2)
 
-desired_v = cur_v + 4511
-perc_v = desired_v/cur_v
+# desired_v = cur_v + 4511
+# perc_v = desired_v/cur_v
 
-print(cur_v)
-print(desired_v)
-print(perc_v)
+# print(cur_v)
+# print(desired_v)
+# print(perc_v)
 
-probe = Probe(30, sun, venus, earth, mars, DinS, perc_v)
+percentage = 1.15
+
+probe = Probe(30, sun, venus, earth, mars, DinS, percentage)
 
 
 # plotting
@@ -118,7 +120,7 @@ dxdata, dydata = [], []
 # cxdata,cydata = [],[] # mars track
 # dxdata,dydata = [],[] # space probe track
 
-def update(i):
+def runOrbit(i):
     axdata.append(venus.x[i])
     bxdata.append(earth.x[i])
     cxdata.append(mars.x[i])
@@ -153,5 +155,5 @@ def update(i):
 
     return line_a,point_a,text_a,line_b,point_b,text_b,line_c,point_c,text_c,line_d,point_d,text_d,text_date
 
-anim = animation.FuncAnimation(fig,func=update,frames=len(earth.x),interval=10,blit=True)
+anim = animation.FuncAnimation(fig,func=runOrbit,frames=len(earth.x),interval=10,blit=True)
 plt.show()
