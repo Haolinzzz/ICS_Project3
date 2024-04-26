@@ -30,7 +30,7 @@ class planet:
         self.vx  = [ d * self.autom for d in table["vx"]]
         self.vy  = [ e * self.autom for e in table["vy"]]
         self.vz  = [ f * self.autom for f in table["vz"]]
-        self.d   = [ g.split(" ")[1] for g in table["datetime_str"]]
+        self.d   = [ g.split(" ")[1] for g in table["datetime_str"]] # for tracking the date
 
     def __init__(self, name, num, mass, start="2020-01-01", stop="2030-01-01"):
         self.name = name
@@ -44,11 +44,11 @@ class Probe:
     xv, yv, zv = 0,0,0
     arr_x,arr_y,arr_z = [],[],[]
     ptr = 0
-    dt = 24*3600
+    dt = DinS
 
-    def CalucateGForce(self, planets, position, ptr):
+    def CalculateGForce(self, planets, position, ptr):
         px, py, pz = position
-        gx, gy, gz = 0,0,0
+        dx, dy, dz = 0,0,0
 
         for planet in planets:
             gravconst = G * planet.mass * self.mass
@@ -59,14 +59,14 @@ class Probe:
             fy = -gravconst*ry/(rx**2+ry**2+rz**2)**1.5
             fz = -gravconst*rz/(rx**2+ry**2+rz**2)**1.5
         
-            gx += fx
-            gy += fy
-            gz += fz         
+            dx += fx
+            dy += fy
+            dz += fz         
 
-        # a = F/m
-        self.xv += gx*self.dt/self.mass
-        self.yv += gy*self.dt/self.mass
-        self.zv += gz*self.dt/self.mass
+        # compute acceleration by a = F/m
+        self.xv += dx*self.dt/self.mass
+        self.yv += dy*self.dt/self.mass
+        self.zv += dz*self.dt/self.mass
         
         # update current position
         px += self.xv*self.dt
@@ -88,7 +88,7 @@ class Probe:
         self.dt = timestep 
 
         for i in range(len(earth.x)):
-            x, y, z = self.CalucateGForce([sun, venus, mars], [self.x, self.y, self.z], self.ptr)
+            x, y, z = self.CalculateGForce([sun, venus, mars], [self.x, self.y, self.z], self.ptr)
             self.ptr += 1
 
             self.x, self.y, self.z = x, y, z

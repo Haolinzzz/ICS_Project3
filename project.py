@@ -12,8 +12,6 @@ AU          = 1.5e11
 DinS        = 24.0*60*60
 
 
-
-
 # initialization
 start = "2023-04-26" # can modify the time by user
 
