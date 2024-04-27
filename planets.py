@@ -1,4 +1,3 @@
-from __future__ import annotations
 from astroquery.jplhorizons import Horizons
 from math import sqrt
 
