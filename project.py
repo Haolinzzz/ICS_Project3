@@ -2,31 +2,18 @@ from planets import planet, Probe
 from math import sqrt
 
 # Constants
-G           = 6.67e-11
-Ms          = 2.0e30             # Mass of sun
-Mv          = 4.8673e24          # Mass of venus
-Me          = 5.9722e24          # Mass of earth        
-Mm          = 6.39e23            # Mass of mars
-
-AU          = 1.5e11
-DinS        = 24.0*60*60
+G           = 6.67e-11          # Gravitational Constant
+AU          = 1.5e11            # Astro Unit
+DinS        = 24.0*60*60        # Day in Seconds
 
 # initialization
 start = "2024-04-26" # can modify the time by user
 
 # define planets
-sun = planet("Sun", 10, Ms, start=start)
-venus = planet("Venus", 299, Mv, start=start)
-earth = planet("Earth", 399, Me, start=start)
-mars = planet("Mars", 499, Mm, start=start)
-
-earth.z = [0 for i in range(len(earth.z))]
-earth.vz = [0 for i in range(len(earth.vz))]
-
-venus.z = [0 for i in range(len(venus.z))]
-venus.vz = [0 for i in range(len(venus.vz))]
-
-earth_v = sqrt((earth.vx[0]/DinS)**2 + (earth.vy[0]/DinS)**2 + (earth.vz[0]/DinS)**2)
+sun = planet("Sun", 10, 2.0e30, start=start)
+venus = planet("Venus", 299, 4.8673e24, start=start)
+earth = planet("Earth", 399, 5.9722e24, start=start)
+mars = planet("Mars", 499, 6.39e23 , start=start)
 
 # this is the the space probe inital velocity's ratio to Earth
 percentage = 1.15
@@ -42,115 +29,85 @@ import matplotlib
 matplotlib.rcParams['animation.embed_limit'] = 2**128
 from IPython.display import HTML
 
-fig, ax = plt.subplots(figsize=(10,10))
-ax.set_aspect('equal')
-ax.grid()
+fig, subp = plt.subplots(figsize=(10,10))
+subp.set_aspect('equal')
+subp.grid()
 
-# initial_position_venus = [AU, 0]
-# initial_position_earth = [1.5 * AU, 0]
-# initial_position_mars = [2 * AU, 0]
-# initial_position_probe = [2 * AU, 0]
-# position_sun = [0, 0]
-
-initial_position_venus = [0.72 * AU, 0]
-initial_position_earth = [AU, 0]
-initial_position_mars = [1.5 * AU, 0]
-initial_position_probe = [1.5 * AU, 0]
-position_sun = [0, 0]
+#initial position
+ip_venus = [0.72 * AU, 0]
+ip_earth = [AU, 0]
+ip_mars = [1.5 * AU, 0]
+ip_probe = [1.5 * AU, 0]
+ip_sun = [0, 0]
 
 # Venus
-line_a, = ax.plot([], [], '-g', lw=1)
-point_a, = ax.plot(*initial_position_venus, marker="o", markersize=4, markeredgecolor="grey", markerfacecolor="grey")
-text_a = ax.text(*initial_position_venus, 'Venus')
+orbit_v, = subp.plot([], [], '-', color='grey', lw=1)
+planet_v, = subp.plot(*ip_venus, marker="o", markersize=4, markeredgecolor="grey", markerfacecolor="grey")
+label_v = subp.text(*ip_venus, 'Venus')
 
 # Earth
-line_b, = ax.plot([], [], '-g', lw=1)
-point_b, = ax.plot(*initial_position_earth, marker="o", markersize=3, markeredgecolor="blue", markerfacecolor="blue")
-text_b = ax.text(1.666 * AU, 0, 'Earth')
+orbit_e, = subp.plot([], [], '-b', lw=1)
+planet_e, = subp.plot(*ip_earth, marker="o", markersize=4, markeredgecolor="blue", markerfacecolor="blue")
+label_e = subp.text(1.666 * AU, 0, 'Earth')
 
 # Mars
-line_c, = ax.plot([], [], '-g', lw=1)
-point_c, = ax.plot(*initial_position_mars, marker="o", markersize=2, markeredgecolor="red", markerfacecolor="red")
-text_c = ax.text(*initial_position_mars, 'Mars')
+orbit_m, = subp.plot([], [], '-r', lw=1)
+planet_m, = subp.plot(*ip_mars, marker="o", markersize=3, markeredgecolor="red", markerfacecolor="red")
+label_m = subp.text(*ip_mars, 'Mars')
 
 # Space Probe
-line_d, = ax.plot([], [], '-g', lw=1)
-point_d, = ax.plot(*initial_position_probe, marker="o", markersize=2, markeredgecolor="black", markerfacecolor="black")
-text_d = ax.text(*initial_position_probe, 'Space Probe')
+orbit_p, = subp.plot([], [], '-', color='black', lw=1)
+spaceprobe_p, = subp.plot(*ip_probe, marker="o", markersize=2, markeredgecolor="black", markerfacecolor="black")
+label_p = subp.text(*ip_probe, 'Space Probe')
 
 # Sun
-point_e, = ax.plot(*position_sun, marker="o", markersize=8, markeredgecolor="yellow", markerfacecolor="yellow")
-text_e = ax.text(*position_sun, "Sun")
+planet_s, = subp.plot(*ip_sun, marker="o", markersize=8, markeredgecolor="yellow", markerfacecolor="yellow")
+label_s = subp.text(*ip_sun, "Sun")
 
 # Date label 
-text_date = ax.text(-2.5 * 1E11, 2.4 * 1E11, earth.start)
+label_date = subp.text(-2.5 * 1E11, 2.4 * 1E11, earth.start)
 
 # position track for each unit
-axdata, aydata = [], []
-bxdata, bydata = [], []
-cxdata, cydata = [], []
-dxdata, dydata = [], []
+venus_x, venus_y = [], []
+earth_x, earth_y = [], []
+mars_x, mars_y = [], []
+probe_x, probe_y = [], []
 
-# line_a,     = ax.plot([],[],'-g',lw=1)
-# point_a,    = ax.plot([AU], [0], marker="o", markersize=4, markeredgecolor="brown", markerfacecolor="brown")
-# text_a      = ax.text(AU,0,'Venus')
-
-# line_b,     = ax.plot([],[],'-g',lw=1)
-# point_b,    = ax.plot([1.5*AU], [0], marker="o", markersize=3, markeredgecolor="blue", markerfacecolor="blue")
-# text_b      = ax.text(1.666*AU,0,'Earth')
-
-# line_c,     = ax.plot([],[],'-g',lw=1)
-# point_c,    = ax.plot([2*AU], [0], marker="o", markersize=2, markeredgecolor="red", markerfacecolor="red")
-# text_c      = ax.text(2*AU,0,'Mars')
-
-# line_d,     = ax.plot([],[],'-g',lw=1)
-# point_d,    = ax.plot([2*AU], [0], marker="o", markersize=2, markeredgecolor="black", markerfacecolor="black")
-# text_d      = ax.text(2*AU,0,'Space Probe')
-
-# point_e     = ax.plot([0], [0], marker="o", markersize=8, markeredgecolor="yellow", markerfacecolor="yellow")
-# text_e      = ax.text(0,0,"Sun")
-
-# text_date   = ax.text(-2.5*1E11, 2.4*1E11, earth.start)
-
-# axdata,aydata = [],[] # venus track
-# bxdata,bydata = [],[] # earth track
-# cxdata,cydata = [],[] # mars track
-# dxdata,dydata = [],[] # space probe track
 
 def runOrbit(i):
-    axdata.append(venus.x[i])
-    bxdata.append(earth.x[i])
-    cxdata.append(mars.x[i])
-    dxdata.append(probe.arr_x[i])
+    venus_x.append(venus.x[i])
+    earth_x.append(earth.x[i])
+    mars_x.append(mars.x[i])
+    probe_x.append(probe.arr_x[i])
     
-    aydata.append(venus.y[i])
-    bydata.append(earth.y[i])
-    cydata.append(mars.y[i])
-    dydata.append(probe.arr_y[i])
+    venus_y.append(venus.y[i])
+    earth_y.append(earth.y[i])
+    mars_y.append(mars.y[i])
+    probe_y.append(probe.arr_y[i])
     
-    line_a.set_data(axdata,aydata)
-    line_b.set_data(bxdata,bydata)
-    line_c.set_data(cxdata,cydata)
-    line_d.set_data(dxdata,dydata)
+    orbit_v.set_data(venus_x,venus_y)
+    orbit_e.set_data(earth_x,earth_y)
+    orbit_m.set_data(mars_x,mars_y)
+    orbit_p.set_data(probe_x,probe_y)
 
-    point_a.set_data(venus.x[i],venus.y[i])
-    point_b.set_data(earth.x[i],earth.y[i])
-    point_c.set_data(mars.x[i],mars.y[i])
-    point_d.set_data(probe.arr_x[i],probe.arr_y[i])
+    planet_v.set_data(venus.x[i],venus.y[i])
+    planet_e.set_data(earth.x[i],earth.y[i])
+    planet_m.set_data(mars.x[i],mars.y[i])
+    spaceprobe_p.set_data(probe.arr_x[i],probe.arr_y[i])
 
 
-    text_a.set_position((venus.x[i],venus.y[i]))
-    text_b.set_position((earth.x[i],earth.y[i]))    
-    text_c.set_position((mars.x[i],mars.y[i]))
-    text_d.set_position((probe.arr_x[i],probe.arr_y[i]))
+    label_v.set_position((venus.x[i],venus.y[i]))
+    label_e.set_position((earth.x[i],earth.y[i]))    
+    label_m.set_position((mars.x[i],mars.y[i]))
+    label_p.set_position((probe.arr_x[i],probe.arr_y[i]))
 
-    ax.axis('equal')
-    ax.set_xlim(-2*AU,2*AU)
-    ax.set_ylim(-2*AU,2*AU)
+    subp.axis('equal')
+    subp.set_xlim(-2.5*AU,2.5*AU)
+    subp.set_ylim(-2.5*AU,2.5*AU)
 
-    text_date.set_text(earth.d[i])
+    label_date.set_text(earth.d[i])
 
-    return line_a,point_a,text_a,line_b,point_b,text_b,line_c,point_c,text_c,line_d,point_d,text_d,text_date
+    return orbit_v,planet_v,label_v,orbit_e,planet_e,label_e,orbit_m,planet_m,label_m,orbit_p,spaceprobe_p,label_p,label_date
 
 anim = animation.FuncAnimation(fig,func=runOrbit,frames=len(earth.x),interval=10,blit=True)
 plt.show()
