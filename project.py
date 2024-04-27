@@ -18,7 +18,7 @@ mars = planet("Mars", 499, 6.39e23 , start=start)
 
 # this is the the space probe inital velocity's ratio to Earth
 # default = 1.15
-v_percentage = 1.20
+v_percentage = 1.15
 
 # define the space probe object
 probe = Probe(30, sun, venus, earth, mars, DinS, v_percentage)
