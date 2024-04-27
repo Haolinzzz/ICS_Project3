@@ -1,18 +1,20 @@
 from planets import planet, Probe
 from math import sqrt
 
-#define the constant
+# Constants
 G           = 6.67e-11
 Ms          = 2.0e30             # Mass of sun
 Mv          = 4.8673e24          # Mass of venus
 Me          = 5.9722e24          # Mass of earth        
 Mm          = 6.39e23            # Mass of mars
+
 AU          = 1.5e11
 DinS        = 24.0*60*60
 
 # initialization
-start = "2023-04-26" # can modify the time by user
+start = "2024-04-26" # can modify the time by user
 
+# define planets
 sun = planet("Sun", 10, Ms, start=start)
 venus = planet("Venus", 299, Mv, start=start)
 earth = planet("Earth", 399, Me, start=start)
@@ -24,17 +26,12 @@ earth.vz = [0 for i in range(len(earth.vz))]
 venus.z = [0 for i in range(len(venus.z))]
 venus.vz = [0 for i in range(len(venus.vz))]
 
-cur_v = sqrt((earth.vx[0]/DinS)**2 + (earth.vy[0]/DinS)**2 + (earth.vz[0]/DinS)**2)
+earth_v = sqrt((earth.vx[0]/DinS)**2 + (earth.vy[0]/DinS)**2 + (earth.vz[0]/DinS)**2)
 
-# desired_v = cur_v + 4511
-# perc_v = desired_v/cur_v
-
-# print(cur_v)
-# print(desired_v)
-# print(perc_v)
-
+# this is the the space probe inital velocity's ratio to Earth
 percentage = 1.15
 
+# define the space probe object
 probe = Probe(30, sun, venus, earth, mars, DinS, percentage)
 
 
@@ -63,7 +60,7 @@ position_sun = [0, 0]
 
 # Venus
 line_a, = ax.plot([], [], '-g', lw=1)
-point_a, = ax.plot(*initial_position_venus, marker="o", markersize=4, markeredgecolor="brown", markerfacecolor="brown")
+point_a, = ax.plot(*initial_position_venus, marker="o", markersize=4, markeredgecolor="grey", markerfacecolor="grey")
 text_a = ax.text(*initial_position_venus, 'Venus')
 
 # Earth

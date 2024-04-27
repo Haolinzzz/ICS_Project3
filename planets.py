@@ -3,16 +3,16 @@ from astroquery.jplhorizons import Horizons
 from math import sqrt
 
 G           = 6.67e-11
-Ms          = 2.0e30             # sun
-Mv          = 4.8673e24          # venus
-Me          = 5.9722e24          # earth        
-Mm          = 6.39e23            # mars
-AU          = 1.5e11
-DinS        = 24.0*60*60
+Ms          = 1.989e30          # sun
+Mv          = 4.867e24          # venus
+Me          = 5.972e24          # earth        
+Mm          = 6.39e23           # mars
+AU          = 1.5e11            # Astro Unit
+DinS        = 24.0*60*60        # Day in seconds 
 
 
 class planet:
-    autom: int = 149597870700
+    autom: int = 149597870700 # au to meters
     step: str = "1d"
     start: str
     stop: str
