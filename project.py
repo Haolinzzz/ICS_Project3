@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 from matplotlib import animation
 import matplotlib
 matplotlib.rcParams['animation.embed_limit'] = 2**128
-from IPython.display import HTML
+
 
 fig, subp = plt.subplots(figsize=(10,10))
 subp.set_aspect('equal')
