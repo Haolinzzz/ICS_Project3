@@ -7,6 +7,7 @@ AU          = 1.5e11            # Astro Unit
 DinS        = 24.0*60*60        # Day in Seconds
 
 # initialization
+# default start date 2024-04-26
 start = "2024-04-26" # can modify the time by user
 
 # define planets
@@ -16,10 +17,11 @@ earth = planet("Earth", 399, 5.9722e24, start=start)
 mars = planet("Mars", 499, 6.39e23 , start=start)
 
 # this is the the space probe inital velocity's ratio to Earth
-percentage = 1.15
+# default = 1.15
+v_percentage = 1.20
 
 # define the space probe object
-probe = Probe(30, sun, venus, earth, mars, DinS, percentage)
+probe = Probe(30, sun, venus, earth, mars, DinS, v_percentage)
 
 
 # plotting
