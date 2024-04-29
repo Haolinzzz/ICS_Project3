@@ -113,3 +113,6 @@ def runOrbit(i):
 
 anim = animation.FuncAnimation(fig,func=runOrbit,frames=len(earth.x),interval=10,blit=True)
 plt.show()
+
+# Save as gif
+#anim.save('start=4.26-v=1.15.gif', writer='imagemagick', fps=30)
