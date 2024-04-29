@@ -115,4 +115,8 @@ anim = animation.FuncAnimation(fig,func=runOrbit,frames=len(earth.x),interval=10
 plt.show()
 
 # Save as gif
-#anim.save('start=4.26-v=1.15.gif', writer='imagemagick', fps=30)
+# total_frame = 30 * 20 # fps = 30 for 20 second gif 
+# anim = animation.FuncAnimation(fig,func=runOrbit,frames=total_frame,interval=10,blit=True)
+# plt.show()
+
+# anim.save('start=4.26-v=1.15.gif', writer='imagemagick', fps=30)
